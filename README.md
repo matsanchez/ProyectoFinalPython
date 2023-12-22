@@ -24,7 +24,7 @@ Para ejecutar el proyecto, el mismo puede descargarse como .zip o git clone
 > [!NOTE]
 > Instalar las dependencias:
 > Cuenta con un archivo donde estan las dependencias usadas "requeriments.txt.
-> Ejecutar el siguiente comando dentro de la carpeta raiz TercerEntregaProyecto
+> Ejecutar el siguiente comando dentro de la carpeta raiz.
 > ```
 > pip install -r requirements.txt
 > ```
@@ -43,8 +43,8 @@ Si todo sale bien, nos informara que podemos visitar el sitio en la siguiente di
 > [!TIP]
 > ## Ejecutar Test del proyecto
 > #### TESTS:
->  - 1) Realiza el CRUD de un Post. ( \project\blog\test.py ) 
->  - 2) Otro realiza un comentario en un Post. ( \project\message\test.py )
+>  - Realiza el CRUD de un Post. ( \project\blog\test.py ) 
+>  - Otro realiza un comentario en un Post. ( \project\message\test.py )
 >
 > Dentro de la carpeta \project podemos ejecutar el siguiente comando y chequear el test.
 > ```
