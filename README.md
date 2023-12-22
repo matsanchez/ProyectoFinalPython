@@ -39,6 +39,11 @@ python manage.py runserver
 
 Si todo sale bien, nos informara que podemos visitar el sitio en la siguiente direccion por defecto http://127.0.0.1:8000/, chequeen igual en su terminal, que direccion le informa donde esta corriendo el servidor.
 
+> [!WARNING]
+> Tiene creado un super usuario
+> - Accedemos a http://127.0.0.1:8000/admin ( en caso que tu servidor corra en otra ip, seria http://tu_ip/admin )
+> - Usuario: admin
+> - Password: 12345678
 
 > [!TIP]
 > ## Ejecutar Test del proyecto
