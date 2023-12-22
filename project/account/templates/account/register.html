@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block header %}
+    {% include 'core/header.html'%}
+{% endblock header %}
+
+{% block contenido %}
+
+<div class="s-content content">
+    <main class="row content__page">
+        
+        <section class="column large-full entry format-standard">
+
+            <div class="content__page-header">
+                <h1 class="display-1">
+                Hola!, Registrate
+                </h1>
+            </div> <!-- end content__page-header -->
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset>
+                        {% for field in form %}
+                            <div class="form-control bg-transparent border-0">
+                            {{ field }}
+                        {% for error in field.errors %}
+                            <div class="error-message"><p class="text-danger fs-5">{{ error }}</p></div>
+                            {% endfor %}
+                            </div>
+                         {% endfor %}
+    
+                        <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large full-width mt-4" value="Registrarme" type="submit">
+    
+                    </fieldset>
+                </form>
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock contenido %}
+
+
+

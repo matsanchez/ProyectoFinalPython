@@ -1,0 +1,195 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block header %}
+    {% include 'core/header.html'%}
+{% endblock header %}
+
+{% block contenido %}
+<div class="s-content content" id="top">
+    {% for message in messages %}
+            {% if message.tags == 'success' %}
+                    <script>
+                        Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "{{message}}",
+                                showConfirmButton: false,
+                                timer: 1500
+                                });
+                    </script>
+            {% elif message.tags == 'info' %}
+                    <script>
+                        Swal.fire({
+                                position: "top-end",
+                                icon: "info",
+                                title: "{{message}}",
+                                showConfirmButton: false,
+                                timer: 1500
+                                });
+                    </script>
+            {% endif %}
+    {% endfor %}
+   
+  <main class="row content__page">
+      
+      <article class="column large-full entry format-standard">
+
+          <div class="media-wrap entry__media">
+            <div class="d-flex justify-content-between mb-3">
+                <div class="d-flex align-items-center">
+                    <a href="{% url 'blog:list_post'%}" class="d-flex align-content-center">
+                        <i class="fa fa-arrow-left fa-fw fa-2x me-2" aria-hidden="true"></i>Volver
+                    </a>
+                </div>                
+                <div>
+                    {% if user.is_authenticated %}
+                    {% if post.author == request.user %}
+                    <div class="dropdown">
+                        <i class="fa fa-ellipsis-h fa-2x" role="button" type="button"  data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu">
+                            <a class="list-group-item" href="{% url 'blog:edit_post' post.pk %}"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>EDITAR</a>
+                            <a class="list-group-item" role="button" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="fa fa-trash fa-fw" aria-hidden="true"></i>BORRAR</a>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            
+            
+         
+              <div class="entry__post-thumb text-center">
+                  <img src="{{post.image.url}}" 
+                       srcset="{{post.image.url}}, 
+                       {{post.image.url}}, 
+                       {{post.image.url}}" sizes="(max-width: 2000px) 100vw, 2000px" alt="">
+              </div>
+          </div>
+
+          <div class="content__page-header entry__header">
+              <h1 class="display-1 entry__title">
+              {{post.title}}
+              </h1>
+              
+              <ul class="entry__header-meta">
+                <p class="fs-1">
+                    {{post.subtitle}}
+                    </p>
+                  <li class="author"><i class="fa fa-user fa-1x" aria-hidden="true"></i>
+                    {{post.author}}</li>
+                  <li class="date">{{post.date}}</li>
+              </ul>
+          </div>
+
+          <div class="entry__content">
+
+              <p>
+              {{post.body | safe}}
+              </p>
+          </div>
+
+      </article>
+
+
+      <div class="comments-wrap bg-transparent">
+
+          <div id="comments" class="column large-12">
+
+              <h3 class="h2">Comentarios</h3>
+              <ol class="commentlist mt-0"  id="comments-section">
+                {% if post.comments.all %}
+                    {% else %}
+                    <div class="text-center"><h4 class="text-danger">No hay comentarios aún...</h4></div>
+                {% endif %}
+                  {% for comment in post.comments.all %}
+                      <li>
+                            <div class="p-2">
+                              <div class="comment__info">
+                                  <div class="comment__author"><i class="fa fa-user" aria-hidden="true"></i> {{comment.author}}</div>
+
+                                  <div class="comment__meta">
+                                      <div class="comment__time">{{comment.date | date:"d-M-Y"}}</div>
+                                      <div class="comment__reply">
+                                          
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="comment__text">
+                                    <p><span class="text-muted fst-italic">Dice:</span> {{comment.body}}</p>
+                              </div>
+                            </div>  
+                      </li>
+                      <hr> 
+                  {% endfor %}
+              </ol>
+             
+
+          </div> 
+
+          <div class="column large-12 comment-respond">
+
+              
+              {% if user.is_authenticated %}
+                <div id="respond">
+    
+                        <h3 class="h2">Dejanos tu comentario<span>Tu correo no se mostrara en el comentario</span></h3>
+
+                        <form method="POST" action="" autocomplete="off">
+                        {% csrf_token %}
+                            <fieldset>
+
+                                <div class="form-field">
+                                    <input name="name" id="{{user.username}}" class="full-width" value="{{user.username}}" type="text" disabled>
+                                </div>
+
+                                <div class="form-field">
+                                    <input name="email" id="{{user.email}}" class="full-width" value="{{user.email}}" type="text" disabled>
+                                </div>
+        
+                                <div class="message form-field">
+                                    <textarea name="body" id="cMessage" class="full-width" placeholder="Tu comentario" required></textarea>
+                                </div>
+
+                                <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large full-width" value="Enviar Comentario" type="submit">
+
+                            </fieldset>
+                        </form> 
+
+                    </div>
+              {% endif %}
+              
+  
+          </div> 
+  
+      </div> 
+  </main>
+
+</div>
+
+<!-- MODAL ALERTA DE BORRAR POST -->
+<div class="modal fade " id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <blockquote>
+          <p>Estas por eliminar el post:</p>
+          <h3>{{post.title}}</h3>
+          <cite>Creada by {{post.author}}</cite>
+      </blockquote>
+        <form action="{% url 'blog:delete_post' post.pk %}" method="POST">
+          {% csrf_token %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-bs-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-danger">Borrar</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+<!-- FIN DEL MODAL ALERTA BORRAR POST -->
+</div>
+    </div>
+  </div>
+{% endblock contenido %}

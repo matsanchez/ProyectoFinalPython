@@ -1,0 +1,50 @@
+{% extends 'core/base.html' %}
+
+{% block header %}
+    {% include 'core/header.html'%}
+{% endblock header %}
+
+{% block contenido %}
+<div class="s-content content">
+    <main class="row content__page">
+        
+        <section class="column large-full entry format-standard">
+
+            <div class="content__page-header">
+                <h1 class="display-1">
+                Editar Post
+                </h1>
+            </div> <!-- end content__page-header -->
+        
+            <form method="POST" enctype="multipart/form-data">
+                <div class="row">
+                    {% csrf_token %}
+                    {% for label in form %}
+                        <div class="form-group">
+                            <label for="{{ label.id_for_label }}">{{ label.label }}</label>
+                            {% if label.name != 'body' %}
+                                <input type="{{ label.field.widget.input_type }}" name="{{ label.name }}" id="{{ label.id_for_label }}" value="{{ label.value }}"
+                                       class="form-control">
+                            {% else %}
+                                <textarea cols='80' rows="10" type="{{ label.field.widget.input_type }}" name="{{ label.name }}" id="{{ label.id_for_label }}"
+                                          class="form-control">{{ label.value }}</textarea>
+                            {% endif %}
+                            
+                            {% for error in label.errors %}
+                                <div class="error-message">
+                                    <p class="text-danger fs-5">{{ error }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                
+                    <button type="submit" class="btn btn-primary-hover-outline mt-2">Actualizar Post</button>
+                </div>
+            </form>
+            
+        </section>
+
+    </main>
+
+</div>
+{% endblock contenido %}

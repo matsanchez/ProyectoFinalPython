@@ -1,0 +1,80 @@
+{% load static %}
+<header class="s-header">
+
+    <div class="header__top">
+        <div class="header__logo">
+            <a class="site-logo" href="{% url 'core:index' %}">
+                <img src="{% static 'core/images/logoheader.jpg' %}" alt="Homepage">
+            </a>
+        </div>
+
+    </div>
+    
+    <a href="#0" class="header__menu-toggle"><span>Menu</span></a>
+
+    <nav class="header__nav-wrap">
+
+        <ul class="header__nav">
+            <li class="has-children">
+                {% if user.is_authenticated %}
+                    <a href="#0" title=""><img src="{{user.profile.avatar.url}}" style="width: 60px; height: 60px; border-radius: 50%;"> Hola {{user.username}}
+                    {% else %}
+                    <a href="#0" title=""><i class="fa fa-user fa-2x me-2" aria-hidden="true"></i>Hola {% if user.is_authenticated %} {{user.username}} {% else  %} Invitado {% endif %}</a>
+                {% endif %}
+
+                <ul class="sub-menu">
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'account:profile' %}">Editar Perfil</a></li>
+                        <a href="" role="button" data-bs-toggle="modal" data-bs-target="#logoutModal">Cerrar Sesion</a>
+                    {% else %}
+                        <li><a href="{% url 'account:login' %}">Iniciar Sesion</a></li>
+                        <li><a href="{% url 'account:register' %}">Registrate</a></li>
+                    {% endif %}
+                </ul>
+            </li>
+            <li class="current"><a href="{% url 'core:index' %}" title="">Home</a></li>
+            <li class="has-children">
+                <a href="#0" title="">Blog</a>
+                <ul class="sub-menu">
+                <li><a href="{% url 'blog:list_post' %}">Ver Posts</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'blog:create_post' %}">Crear un Post</a></li>
+                {% endif %}
+                </ul>
+            </li>
+            <li><a href="{% url 'core:about_me' %}" title="">Sobre mi</a></li>
+        </ul> <!-- end header__nav -->
+
+        <ul class="header__social">
+            <li class="ss-github">
+                <a href="http://www.github.com/matsanchez">
+                    <span class="screen-reader-text">Github</span>
+                </a>
+            </li>
+            <li class="ss-linkedin">
+                <a href="http://www.linkedin.com/in/mmatsanchez">
+                    <span class="screen-reader-text">Linkedin</span>
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+</header>
+
+<div class="modal fade " id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+            <p>¿Seguro de cerrar sesion?</p>
+            <h3>{{user.username}}</h3>
+          <form action="{% url 'account:logout' %}" method="POST">
+            {% csrf_token %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info" data-bs-dismiss="modal">NO</button>
+          <button type="submit" class="btn btn-danger">Si, salir</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>

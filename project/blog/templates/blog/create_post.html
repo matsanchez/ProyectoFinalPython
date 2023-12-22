@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block header %}
+    {% include 'core/header.html'%}
+{% endblock header %}
+
+{% block contenido %}
+<div class="s-content content">
+    <main class="row content__page">
+        
+        <section class="column large-full entry format-standard">
+
+            <div class="content__page-header">
+                <h1 class="display-1">
+                Crear un Post
+                </h1>
+            </div> <!-- end content__page-header -->
+        
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset>
+                    {% for field in form %}
+                    <div class="form-control bg-transparent border-0">
+                    {{ field }}
+                {% for error in field.errors %}
+                    <div class="error-message"><p class="text-danger fs-5">{{ error }}</p></div>
+                    {% endfor %}
+                    </div>
+                 {% endfor %}
+                    <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large full-width" value="Crear Post" type="submit">
+                </fieldset>
+                {{form.errors}}
+            </form>
+            
+        </section>
+
+    </main>
+
+</div>
+{% endblock contenido %}

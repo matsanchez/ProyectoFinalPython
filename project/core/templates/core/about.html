@@ -1,0 +1,115 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block header %}
+	{% include 'core/header.html'%}
+{% endblock header %}
+
+{% block contenido %}
+<div class="s-content">
+	<div class="content__page-header">
+		<h1 class="display-1">
+		Sobre Mi ...
+		</h1>
+	</div>
+    <div class="masonry-wrap">
+
+        <div class="masonry">
+
+            <div class="grid-sizer"></div>
+
+            <article class="masonry__brick entry format-standard animate-this">
+                    
+                <div class="entry__thumb">
+                        <img src="{% static 'core/images/perfilweb2.png' %}" alt="Autor">
+                </div>
+            </article>
+
+			<article class="masonry__brick entry format-standard animate-this">
+                <div class="entry__text">
+                    <div class="entry__header">
+
+                        <h2 class="entry__title"><a>Soy Matias Sanchez</a></h2>
+                        <div class="entry__meta">
+                            <span class="entry__meta-cat">
+                                <a>Full Stack Developer</a> 
+                                <a>and others</a>
+                            </span>
+                        </div>
+                        
+                    </div>
+                    <div class="entry__excerpt">
+                        <p>
+                        Mi camino de desarrollador es largo, con altos y bajos momentos, ya hace 3 años vengo dedicandole mucho tiempo a la programacion, En Coderhouse termine la carrera de Full Stack Developer, luego segui con AWS Cloud Computing, Python y actualmente estoy en Desarrollo de Aplicaciones.
+						Estoy en constante aprendizaje, y abierto a cualquier posibilidad que surja para poder crecer en el ambiente de programacion.
+                        </p>
+                    </div>
+                </div>
+
+            </article>
+
+			<article class="masonry__brick entry format-standard animate-this">
+                <div class="entry__text">
+                    <div class="entry__header">
+
+                        <h2 class="entry__title"><a>Otros Conocimientos</a></h2>
+                        <div class="entry__meta">
+                            <span class="entry__meta-cat">
+                                <a>Cursos</a> 
+                                <a>and others</a>
+                            </span>
+                        </div>
+                        
+                    </div>
+                    <div class="entry__excerpt">
+						<p>UTN Universidad Tecnica Nacional</p>
+                        <ul>
+							<li><p>Exper. Ethical Hacking</p></li>
+						</ul>
+						<p>Consultora ARPAC-IT</p>
+                        <ul>
+							<li><p>Ethical Hacking</p></li>
+							<li><p>Forense Informatico</p></li>
+							<li><p>OSINT</p></li>
+							<li><p>Wireless & Mobile Hacking</p></li>
+						</ul>
+                    </div>
+                </div>
+
+            </article>
+
+			<article class="masonry__brick entry format-standard animate-this">
+                <div class="entry__text">
+                    <div class="entry__header">
+
+                        <h2 class="entry__title"><a>Seguime!..</a></h2>
+                        <div class="entry__meta">
+                            <span class="entry__meta-cat">
+                                <a>Redes Sociales</a> 
+                            </span>
+                        </div>
+                        
+                    </div>
+                    <ul class="header__social">
+						<li class="ss-github">
+							<a href="http://www.github.com/matsanchez">
+								<span class="screen-reader-text">Github</span>
+							</a>
+						</li>
+						<li class="ss-linkedin">
+							<a href="http://www.linkedin.com/in/mmatsanchez">
+								<span class="screen-reader-text">Linkedin</span>
+							</a>
+						</li>
+					</ul>
+                </div>
+
+            </article>
+			
+        </div> 
+
+    </div> 
+
+</div>
+{% endblock contenido %}

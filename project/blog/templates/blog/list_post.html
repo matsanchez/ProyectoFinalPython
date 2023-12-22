@@ -1,0 +1,77 @@
+{% extends 'core/base.html' %}
+{% block header %}
+    {% include 'core/header.html'%}
+{% endblock header %}
+
+{% block contenido %}
+<div class="s-content" id="top">
+    {% for message in messages %}
+            {% if message.tags == 'success' %}
+                    <script>
+                        Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "{{message}}",
+                                showConfirmButton: false,
+                                timer: 1500
+                                });
+                    </script>
+            {% elif message.tags == 'info' %}
+                    <script>
+                        Swal.fire({
+                                position: "top-end",
+                                icon: "info",
+                                title: "{{message}}",
+                                showConfirmButton: false,
+                                timer: 1500
+                                });
+                    </script>
+            {% endif %}
+    {% endfor %}
+
+    <div class="masonry-wrap">
+
+        <div class="masonry">
+
+            <div class="grid-sizer"></div>
+                {% for post in posts  %}
+                <article class="masonry__brick entry format-standard animate-this">
+                    
+                    <div class="entry__thumb">
+                        <a href="{% url 'blog:detail_post' post.pk %}" class="entry__thumb-link">
+                            <img src="{{post.image.url}}" 
+                                    srcset="{{post.image.url}} 1x, {{post.image.url}} 2x" alt="">
+                        </a>
+                    </div>
+    
+                    <div class="entry__text">
+                        <div class="entry__header">
+    
+                            <h2 class="entry__title"><a role="button" href="{% url 'blog:detail_post' post.pk %}">{{post.title}}</a></h2>
+                            <div class="entry__meta">
+                                <span class="entry__meta-cat">
+                                    <p><i class="fa fa-user" aria-hidden="true"></i>{{post.author}}</p>
+                                </span>
+                                <span class="entry__meta-date">
+                                    <p>{{post.date}}</p>
+                                </span>
+                            </div>
+                            
+                        </div>
+                        <div class="entry__excerpt mb-4">
+                            <p>
+                            {{post.body | safe}}
+                            </p>
+                        </div>
+                        <a class="mt-4" href="{% url 'blog:detail_post' post.pk %}"><p class="fs-5">Seguir leyendo...</p></a>
+                    </div>
+                    
+                </article>
+                {% endfor %}
+            
+        </div>
+
+    </div> 
+
+</div>
+{% endblock contenido %}
